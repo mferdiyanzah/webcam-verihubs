@@ -7,6 +7,27 @@ Welcome to WebCam Verihubs, your go-to camera application for capturing and enha
 - **Capture Moments:** Effortlessly capture images from your webcam.
 - **Filter Magic:** Apply a diverse range of filters to enhance your images.
 - **Customization:** Personalize your experience with settings to mirror and flip the image.
+- **Download Images:** Download your images to your local machine.
+
+## Filters
+
+Here's a list of filters you can apply to your images:
+
+- Normal
+- Oldskool
+- Sepia
+- Hulk
+- Blur
+- Bright
+- Opacity
+- Thermal
+- Night
+- Grain
+- Old Grainy
+- Turbulence
+- Noise
+- Convolve
+- VHS
 
 ## Components
 

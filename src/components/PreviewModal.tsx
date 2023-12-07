@@ -32,10 +32,16 @@ export default function PreviewModal({
   };
 
   return (
-    <Modal open={isOpen} centered onCancel={onClose} footer={null}>
+    <Modal
+      open={isOpen}
+      centered
+      onCancel={onClose}
+      footer={null}
+      title="Preview Image"
+    >
       <div className="flex flex-col items-center justify-center">
         <div className="flex flex-col items-center justify-center">
-          <img src={url} alt="Preview" className="w-64 h-64" />
+          <img src={url} alt="Preview" />
           <div className="flex col items-center justify-center mt-4">
             <Input
               placeholder="File Name"

@@ -26,7 +26,7 @@ export default function Camera() {
 
   const webcamRef = useRef<Webcam>(null);
 
-  const capture = useCallback(() => {
+  const capture = () => {
     if (!webcamRef.current) return;
 
     const imageSrc = webcamRef.current.getScreenshot();
@@ -55,7 +55,7 @@ export default function Camera() {
       }
     };
     img.src = imageSrc as string;
-  }, [webcamRef, filterIndex]);
+  };
 
   const changeFilter = (increment: number) => {
     const newIndex = (filterIndex + increment + filter.length) % filter.length;
@@ -162,11 +162,11 @@ export default function Camera() {
       />
       <Filter />
       <div
-        className={`absolute bottom-16 justify-between px-4`}
+        className="absolute bottom-16 justify-between px-4"
         style={{
           width: isBrowserWidthLessThanCameraWidth ? "100%" : cameraWidth,
           display: isCameraReady ? "flex" : "none",
-          bottom: isMobile ? "15%" : "10%",
+          bottom: isMobile ? "12svh" : "10%",
         }}
       >
         <Dropdown menu={{ items }} placement="top">
@@ -174,8 +174,7 @@ export default function Camera() {
             <Button text={<SettingOutlined />} />
           </a>
         </Dropdown>
-        <div></div>
-        <div className="flex w-2/4 justify-between gap-1">
+        <div className="flex w-1/2 justify-between">
           <Button text="<" onClick={() => changeFilter(1)} />
           {filter.map((f, index) => (
             <Button
@@ -187,9 +186,7 @@ export default function Camera() {
           ))}
           <Button text=">" onClick={() => changeFilter(-1)} />
         </div>
-        <div>
-          <Button text={<CameraOutlined />} onClick={capture} />
-        </div>
+        <Button text={<CameraOutlined />} onClick={capture} />
       </div>
       <PreviewModal
         isOpen={isOpen}
