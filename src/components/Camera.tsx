@@ -1,5 +1,6 @@
 import { CameraOutlined, SettingOutlined } from "@ant-design/icons";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Checkbox, Dropdown, MenuProps } from "antd";
+import { useEffect, useRef, useState } from "react";
 import { isMobile } from "react-device-detect";
 import Webcam from "react-webcam";
 import { filter } from "../constants/filter";
@@ -8,7 +9,6 @@ import Filter from "./Filter";
 import Info from "./Info";
 import PreviewModal from "./PreviewModal";
 import Spinner from "./Spinner";
-import { Checkbox, Dropdown, MenuProps } from "antd";
 
 export default function Camera() {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
