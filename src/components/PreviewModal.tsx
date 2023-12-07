@@ -20,11 +20,12 @@ export default function PreviewModal({
     month: "long",
     day: "numeric",
   });
-  const [fileName, setFileName] = useState(time);
+  const [fileNameInput, setFileNameInput] = useState("");
 
   const onDownload = () => {
     const link = document.createElement("a");
     link.href = url;
+    const fileName = fileNameInput || time;
     link.setAttribute("download", `${fileName}.png`);
     document.body.appendChild(link);
     link.click();
@@ -44,9 +45,9 @@ export default function PreviewModal({
           <img src={url} alt="Preview" />
           <div className="flex col items-center justify-center mt-4">
             <Input
-              placeholder="File Name"
-              value={fileName}
-              onChange={(e) => setFileName(e.target.value)}
+              placeholder="Please input file name"
+              value={fileNameInput}
+              onChange={(e) => setFileNameInput(e.target.value)}
               className="mr-2 py-2 px-4"
             />
             <Button text="Download" onClick={onDownload} className="mr-2" />

@@ -29,14 +29,11 @@ Here's a list of filters you can apply to your images:
 - Convolve
 - VHS
 
-## Components
+## Screenshots
 
-- **Camera:** The heart of the application, managing state, image capture, and filtering.
-- **Button:** A reusable and versatile button component.
-- **Filter:** Add flair to your images with this essential component.
-- **Info:** Stay informed with this component delivering key messages.
-- **PreviewModal:** Get a sneak peek of your captured image.
-- **Spinner:** A loading spinner to keep you in the loop.
+![Alt text](public/ss.png)
+
+![Alt text](public/ss-1.png)
 
 ## Libraries Used
 

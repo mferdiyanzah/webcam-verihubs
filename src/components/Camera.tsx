@@ -102,16 +102,6 @@ export default function Camera() {
     }
   };
 
-  const Loading = () => {
-    if (isPromptOpen || !isCameraReady) {
-      return <Spinner />;
-    } else if (!isCameraAllowed) {
-      return (
-        <Info text="Unfortunately, you can't use this app without allowing camera access. Please reset your browser settings and try again." />
-      );
-    } else return null;
-  };
-
   const items: MenuProps["items"] = [
     {
       key: "1",
@@ -141,58 +131,68 @@ export default function Camera() {
 
   return (
     <div className="relative w-full h-screen flex justify-center bg-amber-50 overflow-y-hidden">
-      <Loading />
-      <Webcam
-        audio={false}
-        screenshotFormat="image/jpeg"
-        className={
-          isMobile || isBrowserWidthLessThanCameraWidth
-            ? "object-cover"
-            : "object-contain"
-        }
-        ref={webcamRef}
-        videoConstraints={{ facingMode: "user" }}
-        mirrored={settings.isMirrored}
-        style={{
-          filter: filter[filterIndex].style.filter,
-          display: isCameraReady ? "block" : "none",
-          transform: settings.isFlipped ? "scaleY(-1)" : "scaleY(1)",
-        }}
-        onUserMedia={handleUserMedia}
-      />
-      <Filter />
-      <div
-        className="absolute bottom-16 justify-between px-4"
-        style={{
-          width: isBrowserWidthLessThanCameraWidth ? "100%" : cameraWidth,
-          display: isCameraReady ? "flex" : "none",
-          bottom: isMobile ? "12svh" : "10%",
-        }}
-      >
-        <Dropdown menu={{ items }} placement="top">
-          <a onClick={(e) => e.preventDefault()}>
-            <Button text={<SettingOutlined />} />
-          </a>
-        </Dropdown>
-        <div className="flex w-1/2 justify-between">
-          <Button text="<" onClick={() => changeFilter(1)} />
-          {filter.map((f, index) => (
-            <Button
-              key={index}
-              text={f.name}
-              onClick={() => setFilterIndex(index)}
-              className={`w-2/3 ${index === filterIndex ? "block" : "hidden"}`}
-            />
-          ))}
-          <Button text=">" onClick={() => changeFilter(-1)} />
-        </div>
-        <Button text={<CameraOutlined />} onClick={capture} />
-      </div>
-      <PreviewModal
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-        url={url}
-      />
+      {isPromptOpen ? (
+        <Info text="Please allow camera access to use this app." />
+      ) : !isCameraAllowed ? (
+        <Info text="Unfortunately, you can't use this app without allowing camera access. Please reset your browser settings and try again." />
+      ) : (
+        <>
+          {!isCameraReady && <Spinner />}
+          <Webcam
+            audio={false}
+            screenshotFormat="image/jpeg"
+            className={
+              isMobile || isBrowserWidthLessThanCameraWidth
+                ? "object-cover"
+                : "object-contain"
+            }
+            ref={webcamRef}
+            videoConstraints={{ facingMode: "user" }}
+            mirrored={settings.isMirrored}
+            style={{
+              filter: filter[filterIndex].style.filter,
+              display: isCameraReady ? "block" : "none",
+              transform: settings.isFlipped ? "scaleY(-1)" : "scaleY(1)",
+            }}
+            onUserMedia={handleUserMedia}
+          />
+          <Filter />
+          <div
+            className="absolute bottom-16 justify-between px-4"
+            style={{
+              width: isBrowserWidthLessThanCameraWidth ? "100%" : cameraWidth,
+              display: isCameraReady ? "flex" : "none",
+              bottom: isMobile ? "12svh" : "10%",
+            }}
+          >
+            <Dropdown menu={{ items }} placement="top">
+              <a onClick={(e) => e.preventDefault()}>
+                <Button text={<SettingOutlined />} />
+              </a>
+            </Dropdown>
+            <div className="flex w-1/2 justify-between">
+              <Button text="<" onClick={() => changeFilter(1)} />
+              {filter.map((f, index) => (
+                <Button
+                  key={index}
+                  text={f.name}
+                  onClick={() => setFilterIndex(index)}
+                  className={`w-2/3 ${
+                    index === filterIndex ? "block" : "hidden"
+                  }`}
+                />
+              ))}
+              <Button text=">" onClick={() => changeFilter(-1)} />
+            </div>
+            <Button text={<CameraOutlined />} onClick={capture} />
+          </div>
+          <PreviewModal
+            isOpen={isOpen}
+            onClose={() => setIsOpen(false)}
+            url={url}
+          />
+        </>
+      )}
     </div>
   );
 }
